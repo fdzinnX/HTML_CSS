@@ -1,11 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página Muito Massa</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Titulo</h1>
+  <div class="page-frame">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Design + Código</span>
+        <h1 data-text="Deixa a página muito massa">Deixa a página muito massa</h1>
+        <p id="subtitle">Clique no botão para ativar uma mensagem dinâmica e ver os cards responderem ao movimento.</p>
+      </div>
+
+      <div class="hero-actions">
+        <button id="magicButton" class="btn">Fazer acontecer</button>
+        <button id="themeToggle" class="btn btn-secondary">Modo escuro</button>
+      </div>
+
+      <div id="messageBox" class="message-box hidden"></div>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <h2>Glow Animado</h2>
+        <p>Um visual moderno com vidro, sombra quente e vibração em movimento.</p>
+      </article>
+      <article class="card">
+        <h2>Interatividade</h2>
+        <p>Botão com mensagem aleatória, efeito tilt e animação de entrada em JavaScript.</p>
+      </article>
+      <article class="card">
+        <h2>Responsivo</h2>
+        <p>Layout pronto para desktop e celular, com transições suaves e cores vibrantes.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="background-layer"></div>
+  <script src="script.js"></script>
 </body>
 </html>
