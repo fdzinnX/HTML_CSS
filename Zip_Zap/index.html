@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ZipZap: tecnologia e informática para o seu setup." />
+  <title>ZipZap | Loja de tecnologia e informática</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Estilos inline para cabeçalho e dashboard -->
+  <style>
+    .builder-hero{display:none}
+    .builder-toolbar{margin-top:34px;border-bottom:1px solid rgba(92,96,102,.2);padding:0 0 22px;align-items:end}
+    .builder-toolbar>div:first-child strong{font-size:0}
+    .builder-toolbar>div:first-child strong:before{content:'Minha configuração';font-size:24px}
+    .builder-toolbar>div:first-child span{font-size:0}
+    .builder-toolbar>div:first-child span:before{content:'Rascunho  •  ZipZap Build';font:10px var(--mono);color:var(--muted)}
+    .builder-total-top{display:none}
+    .builder-layout{padding-top:22px}
+    .builder-summary{top:96px}
+    .builder-status-box h3:after{content:' ';white-space:pre}
+    .builder-selected-box{display:block}
+    @media(max-width:700px){.builder-toolbar{margin-top:20px}.builder-toolbar>div:first-child strong:before{font-size:20px}.builder-layout{padding-top:15px}.builder-summary{top:auto}}
+  </style>
+  <style>
+    .builder-main-column{min-width:0}.builder-parts{display:flex;flex-direction:column;gap:12px}.builder-accessories-heading{background:#68665f;color:#fff;border:2px solid #C8BEB0;border-radius:42px;padding:18px 25px;margin-top:28px;align-items:center}.builder-accessories-heading strong{font-size:16px}.builder-accessories-heading span{color:#F1EEE8}.builder-accessories{display:flex}.builder-layout{grid-template-columns:minmax(0,1fr) 320px;gap:26px}.builder-summary{background:transparent;color:#F1EEE8;padding:0;position:sticky;top:120px}.builder-price-box,.builder-status-box,.builder-selected-box{background:#2c2e30;border:2px solid #C8BEB0;padding:25px;margin-bottom:16px}.builder-price-box{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;text-align:center}.builder-price-box strong{font-size:22px;grid-column:1/-1}.builder-price-box span{font:10px var(--mono);color:#F1EEE8;grid-column:1/-1}.builder-price-box i{border-top:1px solid #C8BEB0}.builder-price-box b{font:12px var(--mono)}.builder-status-box h3{font-size:18px;margin:0 0 28px}.builder-status-box h3 span{display:inline-grid;place-items:center;background:#F1EEE8;color:#2c2e30;border-radius:50%;width:24px;height:24px;margin-right:8px}.builder-status-box>div{display:flex;justify-content:space-between;font-size:11px}.builder-progress{height:13px!important;background:#68665f;border:2px solid #C8BEB0;border-radius:10px;margin-top:13px;overflow:hidden}.builder-progress span{display:block!important;background:#F1EEE8;height:100%;width:0;transition:width .25s}.builder-selected-box{max-height:320px;overflow:auto}.builder-summary>.builder-metrics,.builder-summary>.warranty-note{display:none}.builder-summary>.compatibility{display:flex!important;margin:0 0 16px;align-items:flex-start}
+    @media(max-width:700px){.builder-layout{display:block}.builder-summary{position:static;margin-top:20px}.builder-price-box strong{font-size:19px}.builder-accessories-heading{padding:15px 18px}.builder-accessories-heading strong{font-size:13px}}
+  </style>
+  <style>
+    .category-circle img{width:38px;height:38px;display:block;object-fit:contain}
+    .dashboard-categories .category-circle img{width:34px;height:34px}
+    @media(max-width:700px){.category-circle img{width:32px;height:32px}.dashboard-categories .category-circle img{width:29px;height:29px}}
+  </style>
+  <style>
+    .site-header{background:#5C6066;border-bottom:0;color:#F1EEE8}
+    .header-main{height:68px;gap:32px;padding-top:8px;padding-bottom:6px}
+    .brand{color:#fff;letter-spacing:-.04em;font-size:22px}
+    .brand-mark{width:50px;height:42px;background:transparent;color:#fff;font-family:Georgia,serif;font-size:38px;font-style:italic}
+    .logo-reference{position:relative;display:block;width:53px;height:42px;overflow:hidden;font-size:0}
+    .logo-reference span{position:absolute;top:-8px;display:block;font:italic 54px/1 Georgia,serif;letter-spacing:-.2em;transform:scaleX(1.08)}
+    .logo-white{left:0;color:#fff;z-index:2}
+    .logo-beige{left:17px;color:#C8BEB0;z-index:1}
+    .brand-sub{display:none}
+    .search-box{height:36px;max-width:310px;flex:0 0 310px;background:#F7F5F1;border:0;padding:0 12px;color:#5C6066}
+    .search-box input{font-size:13px;font-weight:600}
+    .search-box input::placeholder{color:#5C6066;opacity:.75}
+    .search-box .icon,.search-box kbd{display:none}
+    .header-actions{gap:22px;margin-left:auto}
+    .header-action{color:#fff}
+    .header-action span:last-child{display:none}
+    .action-icon{display:grid;place-items:center;width:42px;height:42px;line-height:1;position:relative}
+    .action-icon img{display:block;width:34px;height:34px;object-fit:contain}
+    .support-action .action-icon img{width:38px;height:38px}
+    .cart-action .action-icon img{width:39px;height:39px}
+    .action-icon b{background:#F1EEE8;color:#5C6066;top:-4px}
+    .notification-dot{background:#fff!important}
+    body{overflow-x:hidden}
+    .main-nav{height:42px;gap:20px;padding-left:96px;overflow-x:auto;overflow-y:hidden}
+    .main-nav button{background:#C8BEB0;color:#fff!important;border-radius:16px;padding:5px 13px 6px;font-size:12px;font-weight:800;line-height:1}
+    .main-nav button:first-child{order:6}
+    .main-nav .nav-new{display:none}
+    .announcement{display:none}
+    body{background:#F1EEE8}
+    #app{background:#F1EEE8}
+    .site-footer{background:#5C6066;color:#F1EEE8;margin-top:80px}.footer-main{display:grid;grid-template-columns:1.25fr .8fr .8fr 1.5fr;gap:50px;padding-top:55px;padding-bottom:48px}.footer-brand{position:relative;padding-left:58px}.footer-logo{position:absolute;left:0;top:-5px;width:46px;height:42px;overflow:hidden;font-size:0}.footer-logo span{position:absolute;top:-7px;font:italic 53px/1 Georgia,serif;letter-spacing:-.2em}.footer-logo .logo-white{left:0;color:#fff;z-index:2}.footer-logo .logo-beige{left:15px;color:#C8BEB0;z-index:1}.footer-brand>strong{font-size:21px}.footer-brand p{color:#C8BEB0;font-size:11px;line-height:1.6;margin:14px 0 0}.footer-label{font:10px var(--mono);letter-spacing:.1em;color:#C8BEB0;margin:0 0 17px}.footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:11px}.footer-column button,.footer-column span{color:#F1EEE8;font-size:11px;padding:0;text-align:left}.footer-column button:hover{text-decoration:underline;color:#d9ff63}.footer-column span{color:#C8BEB0}.footer-newsletter h3{font-size:20px;line-height:1.15;margin:0 0 20px;font-weight:500}.footer-newsletter form{display:flex;border-bottom:1px solid #C8BEB0;max-width:300px}.footer-newsletter input{background:transparent;border:0;outline:0;color:#F1EEE8;flex:1;padding:10px 0;font-size:11px}.footer-newsletter input::placeholder{color:#C8BEB0}.footer-newsletter form button{color:#d9ff63;font-size:22px}.footer-newsletter small{display:block;color:#C8BEB0;font:9px var(--mono);margin-top:12px;line-height:1.5}.footer-bottom{border-top:1px solid rgba(241,238,232,.2);display:flex;justify-content:space-between;padding-top:18px;padding-bottom:20px;color:#C8BEB0;font:9px var(--mono)}.footer-bottom b{color:#d9ff63;font-size:12px}
+    @media(max-width:700px){.header-main{height:auto;min-height:82px;padding-top:14px;padding-bottom:10px}.brand{font-size:19px}.brand-mark{font-size:34px;width:42px}.logo-reference{width:45px;height:36px}.logo-reference span{font-size:46px}.logo-beige{left:14px}.search-box{height:42px;flex-basis:100%;max-width:none}.search-box input{font-size:12px}.header-actions{gap:14px}.action-icon{font-size:29px}.main-nav{height:46px;padding-left:18px;gap:12px;overflow-x:auto}.main-nav button{font-size:10px;padding:5px 10px 6px}.main-nav button:first-child{order:initial}.footer-main{grid-template-columns:1fr 1fr;gap:35px 22px;padding-top:40px;padding-bottom:35px}.footer-brand{grid-column:1/-1}.footer-newsletter{grid-column:1/-1}.footer-bottom{display:block;line-height:1.8}.footer-bottom span{display:block}.footer-bottom span+span{margin-top:7px}}
+  </style>
+  <style>
+    .dashboard-promo-top button{width:20px;height:20px;padding:2px;display:grid;place-items:center}
+    .dashboard-promo-top button img{width:15px;height:15px;object-fit:contain;display:block}
+    .dashboard-promo-card>strong{display:-webkit-box;box-orient:vertical;line-clamp:2;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:29px;line-height:1.25}
+    .dashboard-price{white-space:nowrap}
+    .dashboard-product-row{margin-left:max(-32px,calc((1216px - 100vw)/2));margin-right:max(-32px,calc((1216px - 100vw)/2));padding-left:max(32px,calc((100vw - 1216px)/2));padding-right:max(32px,calc((100vw - 1216px)/2))}
+    @media(max-width:700px){.dashboard-product-row{margin:0 -18px;padding:14px 18px;gap:8px}.dashboard-promo-grid{gap:8px}.dashboard-more{flex-basis:82px;padding:10px 7px;font-size:10px}.dashboard-promo-image{height:90px}}
+    .dashboard-promo-card{display:flex;flex-direction:column;min-height:292px;padding:9px}
+    .dashboard-product-row{flex-wrap:nowrap;overflow:hidden;align-items:center}
+    .dashboard-promo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;flex:1;min-width:0}
+    .dashboard-promo-grid .dashboard-promo-card{flex:1 1 0;min-width:0}
+    .dashboard-more{flex-basis:112px}
+    .dashboard-promo-image{height:146px;flex:0 0 146px;overflow:hidden;margin:0 -1px 9px;background:#171a1e}
+    .dashboard-promo-image img{display:block;width:100%;height:100%;object-fit:cover}
+    .dashboard-promo-card>strong{position:static;margin:0 0 2px;color:#fff;background:transparent}
+    .dashboard-old-price{margin-top:auto}
+    .dashboard-product-row{min-height:322px}
+    .dashboard-promo-image{background:#68665f!important;padding:8px}
+    .dashboard-promo-image img{object-fit:contain!important;object-position:center;width:100%;height:100%}
+    .dashboard-promo-image{background:#68665f}
+    .dashboard-promo-image img[src*="Pc roxo"]{mix-blend-mode:normal;object-fit:contain}
+    @media(min-width:1101px){.dashboard-product-row{display:grid;grid-template-columns:minmax(0,1fr) 112px;align-items:center}.dashboard-promo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;width:100%;flex:none}.dashboard-promo-grid .dashboard-promo-card{min-width:0;width:auto;flex:none}.dashboard-more{width:112px}}
+    @media(max-width:700px){.dashboard-product-row{overflow-x:auto}.dashboard-promo-grid{flex:0 0 auto;overflow:visible}.dashboard-promo-grid .dashboard-promo-card{flex:0 0 172px}.dashboard-promo-card{min-height:248px;padding:7px}.dashboard-promo-image{height:104px;flex-basis:104px;margin-bottom:7px}.dashboard-product-row{min-height:0}}
+  </style>
+  <style>
+    .site-footer{margin-top:80px;background:#5C6066;color:#fff}
+    .footer-reference{min-height:105px;display:flex;align-items:center;gap:42px;padding-top:9px;padding-bottom:9px}
+    .footer-link-group{display:flex;flex-direction:column;align-self:stretch;justify-content:center;min-width:116px;gap:2px}
+    .footer-link-group strong,.footer-social strong{font-size:12px;line-height:1.2;margin-bottom:1px}
+    .footer-link-group a,.footer-link-group button{color:#fff;text-align:left;padding:0;border:0;font-size:11px;line-height:1.35;white-space:nowrap}
+    .footer-link-group a:hover,.footer-link-group button:hover{text-decoration:underline;color:#C8BEB0}
+    .footer-divider{height:56px;border-left:2px solid rgba(241,238,232,.8);margin-left:auto}
+    .footer-social{display:flex;align-items:center;gap:34px;margin-left:16px;white-space:nowrap}
+    .footer-social strong{font-size:13px}
+    .footer-social div{display:flex;align-items:center;gap:24px}
+    .footer-social a{display:grid;place-items:center;color:#fff;font-family:Arial,sans-serif;font-size:38px;line-height:1;cursor:pointer}
+    .footer-social a img{display:block;width:34px;height:34px;object-fit:contain}
+    .footer-social a:nth-child(2){font-size:27px;border-radius:8px}
+    .footer-social a:nth-child(3){font-size:43px}
+    .footer-social a:nth-child(4){font-size:43px;font-weight:700}
+    .footer-social a:nth-child(5){font-size:42px;font-weight:700}
+    .footer-bottom{border-top:1px solid rgba(241,238,232,.15)}
+    @media(max-width:700px){.header-actions{gap:8px}.action-icon{width:35px;height:35px}.action-icon img{width:27px;height:27px}.support-action .action-icon img,.cart-action .action-icon img{width:31px;height:31px}}
+    @media(max-width:700px){.footer-reference{display:grid;grid-template-columns:1fr 1fr;gap:28px 18px;padding-top:35px;padding-bottom:35px}.footer-link-group{min-width:0}.footer-link-group a,.footer-link-group button{font-size:10px;white-space:normal}.footer-divider{display:none}.footer-social{grid-column:1/-1;display:block;margin:5px 0 0;padding-top:22px;border-top:1px solid rgba(241,238,232,.2)}.footer-social div{margin-top:18px;gap:22px}.footer-social a img{width:30px;height:30px}}
+    .dashboard-promotions{background:#F1EEE8;margin:24px calc(50% - 50vw) 0;padding:22px max(32px,calc((100vw - 1216px)/2)) 0}.dashboard-title{max-width:1216px;margin:0 0 16px 0;text-align:left;display:block;width:100%}.dashboard-title h1{display:inline-block;background:#C8BEB0;border-radius:28px;padding:8px 20px;margin:0;text-transform:uppercase;font:500 27px/1 var(--sans);letter-spacing:0;color:#273342}
+    .dashboard-product-row{background:#2c2e30;display:flex;align-items:center;gap:18px;padding:20px max(0px,calc((100vw - 1216px)/2));margin:0 calc(max(32px,calc((100vw - 1216px)/2)) * -1)}.dashboard-promo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;flex:1;min-width:0}.dashboard-more{flex:0 0 112px;background:#F1EEE8;border-radius:4px;padding:12px 13px;font-size:12px;font-weight:800;color:#5C6066}.dashboard-promo-card{background:#68665f;border:2px solid #C8BEB0;padding:8px;min-width:0;color:#fff;position:relative}.dashboard-promo-top{height:19px;display:flex;align-items:center;gap:9px;font-size:11px;color:#fff}.dashboard-promo-top span{margin-right:auto;color:#fff}.dashboard-promo-top span:first-letter{color:#ffcf25}.dashboard-promo-top button{color:#fff;padding:0;font-size:17px;line-height:1}.dashboard-promo-image{height:104px;display:grid;place-items:center;cursor:pointer}.dashboard-promo-image img{width:100%;height:100%;object-fit:contain;mix-blend-mode:normal}.dashboard-promo-card>strong{display:block;font-size:11px;line-height:1.25;min-height:29px;cursor:pointer}.dashboard-old-price{display:block;color:#c8c8c5;text-decoration:line-through;font-size:9px;margin-top:4px}.dashboard-price{font-size:16px;font-weight:800;margin-top:2px}.dashboard-price em{font-style:normal;background:#bfe8d1;color:#317a59;border-radius:10px;padding:3px 6px;font-size:9px;margin-left:4px}.dashboard-categories{background:#f1eee8;margin:0 -32px;padding:28px 32px 22px}.dashboard-categories .category-scroll{max-width:1216px;margin:auto;justify-content:space-between;gap:16px;padding-bottom:2px}.dashboard-categories .category-item{flex:1;min-width:80px}.dashboard-categories .category-circle{width:84px;height:84px;background:#2c2e30;color:#fff;border:2px solid #777;margin:0 auto 10px}.dashboard-categories .category-item:hover .category-circle{background:#5C6066;color:#d9ff63}.dashboard-categories .category-item:nth-child(n+9){display:none}.dashboard-recommendations{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:#f1eee8;margin:0 -32px;padding:12px 32px 34px}.recommendation-card{background:#68665f;border:2px solid #C8BEB0;color:#fff;text-align:left;padding:8px 10px;min-height:140px}.recommendation-card h3{font-size:14px;margin:0 0 12px}.recommendation-card h3 span{float:right;font-size:20px}.recommendation-item{display:flex;align-items:center;gap:12px;margin:8px 0}.recommendation-visual{font-size:32px;color:#ddd}.recommendation-item strong,.recommendation-item b{display:block;font-size:10px}.recommendation-item b{font-size:12px;margin-top:3px}.recommendation-products{display:flex;justify-content:space-around;font-size:45px;color:#ddd;padding-top:8px}.recommendation-ssd{text-align:center;font-size:11px;padding-top:17px}.recommendation-ssd b{font-size:17px;display:block;margin-top:6px}
+    @media(max-width:700px){.dashboard-promotions{margin:24px -18px 0;padding:18px}.dashboard-title h1{font-size:21px;padding:8px 15px}.dashboard-title button{padding:10px 12px;font-size:10px}.dashboard-promo-grid{grid-template-columns:repeat(2,1fr);gap:10px}.dashboard-promo-image{height:90px}.dashboard-promo-card>strong{font-size:10px}.dashboard-price{font-size:14px}.dashboard-categories{margin:0 -18px;padding:24px 18px 18px}.dashboard-categories .category-scroll{justify-content:flex-start;gap:14px}.dashboard-categories .category-item{flex:0 0 82px}.dashboard-categories .category-item:nth-child(n+9){display:block}.dashboard-categories .category-circle{width:72px;height:72px}.dashboard-recommendations{grid-template-columns:1fr 1fr;margin:0 -18px;padding:10px 18px 25px}.recommendation-card h3{font-size:11px}.recommendation-products{font-size:34px}}
+  </style>
+  <style>
+    .part-select{display:flex!important;flex-direction:row!important;align-items:center;gap:16px;position:relative;background:#68665f;border:2px dashed #C8BEB0;border-radius:10px;padding:12px 16px;color:#fff;min-height:112px;box-shadow:none;cursor:pointer;text-align:left;width:100%;font:inherit;transition:background .2s,border-color .2s,transform .2s}
+    .cart-thumb img{width:100%;height:100%;object-fit:contain;display:block}
+    .cart-parts{margin:4px 0 0;font-size:9px;color:var(--muted);line-height:1.4}
+    #addBuilder:disabled{opacity:.45;cursor:not-allowed}
+    .part-select.chosen{border-style:solid;border-color:#F1EEE8;background:#5f5d57;box-shadow:none!important}
+    .part-thumb{flex:0 0 96px;width:96px;height:96px;background:#2c2e30;border-radius:8px;display:grid;place-items:center;overflow:hidden}
+    .part-thumb img{width:100%;height:100%;object-fit:contain}
+    .part-thumb-empty{font-size:28px;font-weight:800;color:#C8BEB0}
+    .part-copy{min-width:0;flex:1;display:flex;flex-direction:column;gap:3px}
+    .part-label{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#C8BEB0}
+    .part-label:before{content:none!important}
+    .part-copy strong{font-size:14px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .part-copy em{font-style:normal;font-size:11px;color:#d8d4cc}
+    .part-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:4px}
+    .part-price b{font-size:16px}
+    .part-price small{font-size:10px;color:#bfe8d1}
+    .part-icon{flex:0 0 36px;order:3;margin-left:auto;border:0;background:#F1EEE8;color:#68665f;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-size:22px}
+    .part-icon:before{content:'+'!important}
+    .part-select.chosen .part-icon:before{content:'✓'!important;font-size:16px}
+    .selected-part{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:10px 0}
+    .selected-part img{width:42px;height:42px;object-fit:contain;background:#68665f;border-radius:6px}
+    .selected-part span{display:block;color:#C8BEB0;font-size:9px}
+    .selected-part strong{display:block;font-size:11px;line-height:1.3;max-height:2.6em;overflow:hidden}
+    .selected-part b{font-size:11px;white-space:nowrap}
+    .builder-picker-backdrop{position:fixed;inset:0;background:rgba(34,36,39,.55);z-index:55;display:none;place-items:center;padding:24px}
+    .builder-picker-backdrop.open{display:grid}
+    .builder-picker{background:#F1EEE8;width:min(920px,100%);max-height:86vh;overflow:auto;padding:32px 28px;position:relative;border-radius:12px}
+    .builder-picker h2{margin:8px 0 22px;font-size:28px}
+    .builder-picker-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .builder-pick-card{background:#68665f;color:#fff;border:2px solid #C8BEB0;border-radius:10px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:280px}
+    .builder-pick-card:hover,.builder-pick-card.selected{border-color:#F1EEE8;transform:translateY(-2px)}
+    .builder-pick-image{height:140px;background:#2c2e30;border-radius:8px;display:grid;place-items:center;overflow:hidden}
+    .builder-pick-image img{width:100%;height:100%;object-fit:contain}
+    .builder-pick-brand{font:10px var(--mono);color:#C8BEB0;text-transform:uppercase}
+    .builder-pick-card strong{font-size:12px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px}
+    .builder-pick-card s{color:#c8c8c5;font-size:10px}
+    .builder-pick-card b{font-size:16px}
+    .builder-pick-card small{color:#bfe8d1;font-size:10px}
+    .builder-pick-clear{grid-column:1/-1;padding:12px;border:2px dashed #C8BEB0;background:transparent;color:#5C6066;font-weight:700}
+    @media(max-width:700px){
+      .part-select{min-height:92px;padding:10px;gap:10px}
+      .part-thumb{flex-basis:72px;width:72px;height:72px}
+      .part-copy strong{font-size:12px}
+      .part-price b{font-size:14px}
+      .builder-picker{padding:22px 16px}
+      .builder-picker-grid{grid-template-columns:1fr 1fr;gap:10px}
+      .builder-pick-card{min-height:240px}
+      .builder-pick-image{height:100px}
+    }
+    @media(min-width:1101px){
+      .dashboard-product-row{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;overflow:visible!important}
+      .dashboard-promo-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;gap:12px!important}
+      .dashboard-promo-grid .dashboard-promo-card{width:auto!important;min-width:0!important;flex:none!important}
+      .dashboard-more{flex:0 0 112px!important;width:112px!important}
+    }
+    .dashboard-product-row{overflow:visible!important}
+    .dashboard-promo-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}
+    @media(max-width:900px){
+      .dashboard-product-row{overflow-x:visible!important;flex-wrap:wrap!important}
+      .dashboard-promo-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;min-width:0}
+      .dashboard-more{width:100%;flex-basis:100%!important}
+    }
+  </style>
+  <style>
+    .search-box{position:relative;padding-right:36px}
+    .search-box .icon{display:block!important;position:absolute;right:11px;top:50%;transform:translateY(-50%);margin:0;color:#5C6066;font-size:21px;line-height:1;z-index:2}
+    .search-box .icon img{display:block;width:16px;height:16px}
+    .search-box input{padding-right:2px}
+    .site-header .container{max-width:none}
+    .site-header .header-main{padding-left:20px;padding-right:8px}
+    .site-header .main-nav{padding-left:20px;padding-right:20px}
+    .site-header .header-main{padding-right:8px}
+    .site-header .header-actions{margin-right:0}
+    @media(max-width:700px){.site-header .header-main{padding-right:8px}.site-header .header-actions{gap:10px}}
+  </style>
+  <style>
+    .dashboard-recommendations{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding-left:max(32px,calc((100vw - 1520px)/2));padding-right:max(32px,calc((100vw - 1520px)/2));grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    .recommendation-card{min-height:195px;padding:14px 12px;border-color:#C8BEB0;transition:transform .2s,box-shadow .2s}
+    .recommendation-card:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(44,46,48,.18)}
+    .recommendation-card h3{font-size:16px;line-height:1.15;margin-bottom:18px}
+    .recommendation-card h3 span{font-size:25px;line-height:.7}
+    .recommendation-item{margin:14px 0;gap:15px;display:flex;align-items:center;width:100%;text-align:left;background:none;border:0;color:inherit;padding:0;cursor:pointer}
+    .recommendation-visual{width:48px;height:48px;text-align:center;font-size:34px;background:#2c2e30;border-radius:8px;display:grid;place-items:center;overflow:hidden;flex:0 0 48px}
+    .recommendation-visual img{width:100%;height:100%;object-fit:contain}
+    .recommendation-item strong{font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .recommendation-item b{font-size:13px;margin-top:5px;display:block}
+    .recommendation-card h3{cursor:pointer}
+    .recommendation-products{font-size:54px;padding-top:22px}
+    .recommendation-ssd{font-size:13px;padding-top:32px}
+    .recommendation-ssd b{font-size:22px}
+    @media(max-width:700px){.dashboard-recommendations{grid-template-columns:1fr 1fr;margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px;gap:10px}.recommendation-card{min-height:160px;padding:11px 9px}.recommendation-card h3{font-size:12px;margin-bottom:12px}.recommendation-products{font-size:38px;padding-top:15px}.recommendation-ssd{font-size:10px;padding-top:25px}.recommendation-ssd b{font-size:17px}}
+  </style>
+  <style>
+    .dashboard-promo-card>strong{
+      display:-webkit-box!important;
+      -webkit-box-orient:vertical!important;
+      -webkit-line-clamp:2!important;
+      overflow:hidden!important;
+      white-space:normal!important;
+      min-height:2.5em;
+      max-height:2.6em;
+      line-height:1.25;
+    }
+    .dashboard-price{white-space:normal!important;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+    .dashboard-old-price{display:block;min-height:1.2em}
+    .dashboard-promo-image{height:170px!important;flex-basis:170px!important;padding:12px!important;overflow:hidden}
+    .dashboard-promo-image img{object-fit:contain!important;object-position:center!important;width:100%!important;height:100%!important}
+    @media(max-width:700px){.dashboard-promo-image{height:135px!important;flex-basis:135px!important;padding:8px!important}}
+  </style>
+  <style>
+    @media(min-width:701px){
+      .dashboard-promo-card{min-height:365px!important;padding:14px!important}
+      .dashboard-promo-image{height:205px!important;flex-basis:205px!important;padding:16px!important;overflow:hidden!important}
+      .dashboard-promo-image img{display:block!important;width:auto!important;height:auto!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center!important}
+      .dashboard-promo-card>strong{font-size:14px!important;line-height:1.3!important}
+      .dashboard-promo-top{font-size:13px!important;height:23px!important}
+      .dashboard-price{font-size:19px!important}
+      .dashboard-categories .category-circle{width:84px!important;height:84px!important}
+      .dashboard-categories .category-circle img{width:40px!important;height:40px!important}
+      .dashboard-categories .category-item>span:last-child{font-size:13px!important}
+    }
+    @media(max-width:700px){
+      .dashboard-promo-image img{display:block!important;width:auto!important;height:auto!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+    }
+  </style>
+  <style>
+    .dashboard-promo-image{overflow:hidden!important}
+    .dashboard-promo-image img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center center!important}
+    @media(min-width:701px){.dashboard-promo-image{height:230px!important;flex-basis:230px!important}.dashboard-promo-card{min-height:390px!important}}
+  </style>
+  <!-- INOVAÇÕES E CORREÇÕES -->
+  <style>
+    /* Dark mode corrigido */
+    [data-theme="dark"] {
+      --ink: #F1EEE8;
+      --sand: #B8B0A3;
+      --cream: #2A2C2E;
+      --paper: #1C1D1F;
+      --line: rgba(241,238,232,.15);
+      --muted: #A0A0A0;
+      --accent: #d9ff63;
+    }
+    [data-theme="dark"] body {
+      background: #1C1D1F;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .site-header {
+      background: #1C1D1F;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    [data-theme="dark"] .search-box {
+      background: #2A2C2E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .search-box input {
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .main-nav button {
+      background: #2A2C2E;
+      color: #F1EEE8 !important;
+    }
+    [data-theme="dark"] .action-icon img {
+      filter: invert(1) brightness(2);
+    }
+    [data-theme="dark"] .action-icon b {
+      background: #d9ff63;
+      color: #1C1D1F;
+    }
+    [data-theme="dark"] .dashboard-promotions,
+    [data-theme="dark"] .dashboard-categories,
+    [data-theme="dark"] .dashboard-recommendations {
+      background: #1C1D1F;
+    }
+    [data-theme="dark"] .dashboard-promo-card {
+      background: #2A2C2E;
+      border-color: #3A3C3E;
+    }
+    [data-theme="dark"] .dashboard-title h1 {
+      background: #2A2C2E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .dashboard-more {
+      background: #2A2C2E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .recommendation-card {
+      background: #2A2C2E;
+      border-color: #3A3C3E;
+    }
+    [data-theme="dark"] .product-card {
+      background: #2A2C2E;
+    }
+    [data-theme="dark"] .product-image {
+      background: #222;
+    }
+    [data-theme="dark"] .favorite-button {
+      background: rgba(255,255,255,.1);
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .card-buy {
+      background: #F1EEE8;
+      color: #1C1D1F;
+    }
+    [data-theme="dark"] .filters select,
+    [data-theme="dark"] .sort-row select {
+      background: #2A2C2E;
+      color: #F1EEE8;
+      border-color: var(--line);
+    }
+    [data-theme="dark"] .page-intro {
+      border-bottom-color: rgba(255,255,255,.1);
+    }
+    [data-theme="dark"] .detail-visual,
+    [data-theme="dark"] .gaming-image {
+      background: #2A2C2E;
+    }
+    [data-theme="dark"] .side-panel {
+      background: #1C1D1F;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .cart-thumb {
+      background: #2A2C2E;
+    }
+    [data-theme="dark"] .cart-row {
+      border-bottom-color: rgba(255,255,255,.1);
+    }
+    [data-theme="dark"] .notification-item,
+    [data-theme="dark"] .login-form input {
+      background: #2A2C2E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .toast {
+      background: #F1EEE8;
+      color: #1C1D1F;
+    }
+    [data-theme="dark"] .toast > span {
+      color: #2A2C2E;
+    }
+    [data-theme="dark"] .checkout-form,
+    [data-theme="dark"] .checkout-summary {
+      background: #2A2C2E;
+      border-color: rgba(255,255,255,.1);
+    }
+    [data-theme="dark"] .checkout-form input,
+    [data-theme="dark"] .checkout-form select {
+      background: #1C1D1F;
+      color: #F1EEE8;
+      border-color: rgba(255,255,255,.2);
+    }
+    [data-theme="dark"] .builder-hero {
+      background: #2A2C2E;
+    }
+    [data-theme="dark"] .part-select {
+      background: #2A2C2E;
+      border-color: #3A3C3E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .part-select.chosen {
+      border-color: #F1EEE8;
+      background: #333;
+    }
+    [data-theme="dark"] .part-thumb {
+      background: #1C1D1F;
+    }
+    [data-theme="dark"] .builder-summary .builder-price-box,
+    [data-theme="dark"] .builder-summary .builder-status-box,
+    [data-theme="dark"] .builder-summary .builder-selected-box {
+      background: #2A2C2E;
+      border-color: #3A3C3E;
+    }
+    [data-theme="dark"] .about-section {
+      background: #2A2C2E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .about-image {
+      background: #1C1D1F;
+    }
+    [data-theme="dark"] .testimonials {
+      background: #1C1D1F;
+    }
+    [data-theme="dark"] .testimonial-card {
+      background: #2A2C2E;
+      border-color: #3A3C3E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .chat-window {
+      background: #2A2C2E;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .chat-msg.bot {
+      background: #1C1D1F;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .chat-input-row {
+      border-top-color: rgba(255,255,255,.2);
+    }
+    [data-theme="dark"] .chat-input-row input {
+      background: #1C1D1F;
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .site-footer {
+      background: #1C1D1F;
+    }
+    [data-theme="dark"] .site-footer .footer-link-group a,
+    [data-theme="dark"] .site-footer .footer-link-group button {
+      color: #F1EEE8;
+    }
+    [data-theme="dark"] .site-footer .footer-social strong {
+      color: #F1EEE8;
+    }
+    /* Chat bot */
+    .chat-bubble { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #5C6066; border-radius: 50%; display: grid; place-items: center; cursor: pointer; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,.2); }
+    .chat-bubble img { width: 30px; height: 30px; }
+    .chat-window { position: fixed; bottom: 90px; right: 20px; width: 330px; max-height: 450px; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.2); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
+    .chat-window.open { display: flex; }
+    .chat-header { background: #5C6066; color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .chat-header strong { font-size: 14px; }
+    .chat-close { background: transparent; color: #fff; font-size: 20px; cursor: pointer; }
+    .chat-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+    .chat-msg { padding: 8px 12px; border-radius: 16px; max-width: 80%; font-size: 12px; }
+    .chat-msg.bot { background: #f1eee8; align-self: flex-start; }
+    .chat-msg.user { background: #d9ff63; align-self: flex-end; }
+    .chat-input-row { display: flex; border-top: 1px solid var(--line); }
+    .chat-input-row input { flex: 1; border: 0; padding: 12px; outline: 0; font-size: 12px; }
+    .chat-input-row button { background: #5C6066; color: #fff; padding: 0 16px; border: 0; cursor: pointer; }
+    /* Depoimentos */
+    .testimonials { background: #f1eee8; padding: 60px 0; margin: 60px -32px 0; }
+    .testimonials h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .testimonial-card { background: #fff; padding: 24px; border-radius: 8px; border: 1px solid var(--line); }
+    .testimonial-card p { font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .testimonial-author { margin-top: 15px; font-weight: 700; font-size: 12px; }
+    .testimonial-stars { color: #d9ff63; letter-spacing: 2px; }
+    @media(max-width:700px){ .testimonial-grid { grid-template-columns: 1fr; padding: 0 18px; } }
+    /* Sobre */
+    .about-content { max-width: 900px; margin: 0 auto; padding: 50px 0; }
+    .about-content h2 { font-size: 32px; margin-bottom: 20px; }
+    .about-content p { font-size: 16px; line-height: 1.8; }
+    .about-highlight { background: var(--cream); padding: 20px; border-radius: 8px; margin-top: 30px; }
+    /* Botão tema */
+    .theme-toggle { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; background: #5C6066; color: #fff; border-radius: 50%; display: grid; place-items: center; cursor: pointer; z-index: 99; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,.2); }
+    /* Barra de progresso leitura */
+    .reading-progress { position: fixed; top: 0; left: 0; height: 4px; background: #d9ff63; z-index: 1000; width: 0%; }
+  </style>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+  <div class="announcement"><span class="pulse"></span> Frete grátis acima de R$ 499 <span class="announcement-separator">•</span> 10x sem juros no cartão</div>
+  <header class="site-header">
+    <div class="header-main container">
+      <button class="brand" data-view="home" aria-label="ZipZap - início"><span class="brand-mark logo-reference" aria-hidden="true"><span class="logo-white">Z</span><span class="logo-beige">Z</span></span><span>ZipZap<span class="brand-sub">TECNOLOGIA</span></span></button>
+      <form class="search-box" id="searchForm"><span class="icon"><img src="https://api.iconify.design/fa6-solid:magnifying-glass.svg?color=5C6066" alt=""></span><input id="searchInput" type="search" placeholder="Buscar por produto, marca ou categoria..." autocomplete="off" /><kbd>⌘ K</kbd></form>
+      <div class="header-actions">
+        <button class="header-action support-action" data-panel="support" aria-label="Atendimento"><span class="action-icon"><img src="https://api.iconify.design/fa6-solid:headset.svg?color=white" alt=""></span><span>Atendimento</span></button>
+        <button class="header-action" data-view="favorites" aria-label="Favoritos"><span class="action-icon"><img src="https://api.iconify.design/fa6-solid:heart.svg?color=white" alt=""><b id="favoritesBadge">0</b></span><span>Favoritos</span></button>
+        <button class="header-action" data-panel="notifications" aria-label="Notificações"><span class="action-icon"><img src="https://api.iconify.design/fa6-solid:bell.svg?color=white" alt=""><b class="notification-dot"></b></span><span>Avisos</span></button>
+        <button class="header-action cart-action" data-panel="cart" aria-label="Carrinho"><span class="action-icon"><img src="https://api.iconify.design/fa6-solid:cart-shopping.svg?color=white" alt=""><b id="cartBadge">0</b></span><span>Carrinho</span></button>
+        <button class="header-action" data-panel="account" aria-label="Minha conta"><span class="action-icon"><img src="https://api.iconify.design/fa6-solid:circle-user.svg?color=white" alt=""></span><span>Conta</span></button>
+      </div>
+    </div>
+    <nav class="main-nav container" aria-label="Navegação principal">
+      <button data-modal="store">Encontre-nos</button><button data-view="promotions">Promoções <span class="nav-new">HOT</span></button><button data-view="best">Mais vendidos</button><button data-view="builder">Monte seu PC</button><button data-view="gaming">PC Gamer Montado</button><button data-view="about">Sobre nós</button><button data-category="Hardware">Hardware</button><button data-category="Periféricos">Periféricos</button>
+    </nav>
+  </header>
+
+  <main id="app" class="container">
+    <section id="homeView" class="view active">
+      <section class="dashboard-promotions"><div class="dashboard-title"><h1>Promoções</h1></div><div class="dashboard-product-row"><div class="dashboard-promo-grid" id="dashboardPromotions"></div><button class="dashboard-more" data-view="promotions">Veja mais <span>→</span></button></div></section>
+      <section class="dashboard-categories"><div class="category-scroll" id="categoryList"></div></section>
+      <section class="dashboard-recommendations" id="dashboardRecommendations"></section>
+      
+      <!-- Depoimentos -->
+      <section class="testimonials">
+        <h2>Quem compra, recomenda 💬</h2>
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"Montagem super rápida e o PC gamer que comprei roda tudo no ultra. Recomendo demais!"</p>
+            <div class="testimonial-author">- Carlos M.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"A melhor loja de tecnologia que já comprei. Produto original e chegou antes do prazo."</p>
+            <div class="testimonial-author">- Juliana R.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p>"O suporte é excelente, resolveram minha dúvida na hora pelo chat. Virou minha loja favorita."</p>
+            <div class="testimonial-author">- Pedro S.</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="promotionsView" class="view"><div class="page-intro"><div><p class="eyebrow">SELEÇÃO DA SEMANA</p><h1>Ofertas em destaque</h1><p>Condições especiais para melhorar seu setup hoje.</p></div><span class="result-count">PIX com 5% extra</span></div><div class="section-heading promotion-heading"><h2>Preço baixo, escolha alta.</h2><button class="text-button" id="showMorePromos">Ver mais <span>→</span></button></div><div class="product-grid" id="promotionProducts"></div></section>
+    <section id="catalogView" class="view"><div class="page-intro"><div><p class="eyebrow">CATÁLOGO ZIPZAP</p><h1 id="catalogTitle">Todos os produtos</h1><p id="catalogDescription">Componentes e periféricos escolhidos para o seu melhor desempenho.</p></div><span class="result-count" id="resultCount"></span></div><div class="catalog-layout"><aside class="filters"><div class="filter-title">Filtrar produtos <button id="clearFilters">Limpar</button></div><label>Categoria<select id="categoryFilter"><option value="">Todas as categorias</option></select></label><label>Marca<select id="brandFilter"><option value="">Todas as marcas</option></select></label><label>Preço máximo<input id="priceFilter" type="range" min="100" max="10000" step="100" value="10000"><span class="range-value" id="priceValue">Até R$ 10.000</span></label><label>Avaliação<select id="ratingFilter"><option value="">Qualquer avaliação</option><option value="4.5">4.5 estrelas ou mais</option><option value="4.8">4.8 estrelas ou mais</option></select></label><label class="check-label"><input id="saleFilter" type="checkbox"> Apenas em promoção</label><label class="check-label"><input id="bestFilter" type="checkbox"> Mais vendidos</label></aside><div class="catalog-results"><div class="sort-row"><span>Ordenar por</span><select id="sortFilter"><option value="featured">Destaques</option><option value="price-low">Menor preço</option><option value="price-high">Maior preço</option><option value="rating">Melhor avaliação</option></select></div><div class="product-grid" id="catalogProducts"></div></div></div></section>
+
+    <section id="productView" class="view"><button class="back-button" data-view="home">← Voltar para a loja</button><div id="productDetail"></div><div id="complementaryProducts" style="margin-bottom:50px"></div></section>
+    <section id="checkoutView" class="view"><div id="checkoutContent"></div></section>
+    <section id="builderView" class="view"><div class="builder-hero"><div><p class="eyebrow">ZIPZAP CONFIGURATOR / BETA</p><h1>Monte seu PC</h1><p>Escolha as peças. O sistema verifica tudo em tempo real.</p></div><div class="builder-steps"><span class="active"><b>01</b> Componentes</span><i></i><span><b>02</b> Conferência</span><i></i><span><b>03</b> Carrinho</span></div></div><div class="builder-toolbar"><div><strong>Componentes do seu PC</strong><span>Selecione uma opção em cada categoria</span></div><div class="builder-total-top"><span>Total estimado</span><strong id="builderTotalTop">R$ 0</strong></div></div><div class="builder-layout"><div class="builder-main-column"><div class="builder-parts" id="builderParts"></div><div class="builder-accessories-heading"><div><strong>Periféricos, acessórios e extras</strong><span>Adicione apenas o que precisar</span></div><span class="optional-label">OPCIONAL</span></div><div class="builder-parts builder-accessories" id="builderAccessories"></div></div><aside class="builder-summary"><div class="builder-price-box"><strong id="builderSummaryTotal">R$ 0,00</strong><span>No PIX com 5% de desconto</span><i></i><b>OU</b><i></i><strong id="builderSummaryInstallment">R$ 0,00</strong><span>Em até 10x sem juros no cartão</span></div><div class="builder-status-box"><h3><span>!</span> Status do Build</h3><div><span id="builderProgressLabel">0 de 9 componentes obrigatórios</span><strong id="builderProgressPercent">0%</strong></div><div class="builder-progress"><span id="builderProgressBar"></span></div></div><div class="builder-selected-box"><div class="summary-top"><span>PEÇAS SELECIONADAS</span><span id="builderProgress">0 / 9</span></div><div id="selectedParts"><p class="empty-builder">Comece escolhendo um processador.</p></div></div><div class="builder-metrics"><div><span>Consumo estimado</span><strong id="powerEstimate">0W</strong></div><div><span>Preço no PIX</span><strong id="builderPix">R$ 0</strong></div></div><div class="compatibility" id="compatibility"><span class="status-dot"></span><span>Escolha componentes para verificar</span></div><button class="button button-dark full" id="addBuilder" disabled>Adicionar PC ao carrinho <span>→</span></button><p class="warranty-note">Montagem ZipZap com 12 meses de garantia.</p></aside></div></section>
+    <section id="gamingView" class="view"><div class="page-intro"><div><p class="eyebrow">ZIPZAP READY / PERFORMANCE</p><h1>PC Gamer Montado</h1><p>Máquinas equilibradas, testadas e prontas para jogar.</p></div></div><div class="gaming-grid" id="gamingProducts"></div><div class="warranty-block"><p class="eyebrow">GARANTIA ZIPZAP</p><h2>Você joga. A gente garante.</h2><div><span><b>01</b><strong>Garantia da montagem</strong><small>12 meses para mão de obra e montagem do sistema.</small></span><span><b>02</b><strong>Garantia das peças</strong><small>Cada componente mantém a garantia original do fabricante.</small></span><span><b>03</b><strong>Suporte próximo</strong><small>Atendimento humano para qualquer dúvida do seu setup.</small></span></div></div></section>
+    <section id="favoritesView" class="view"><div class="page-intro"><div><p class="eyebrow">SUA SELEÇÃO</p><h1>Meus favoritos</h1><p>Produtos que você quer acompanhar de perto.</p></div></div><div class="product-grid" id="favoriteProducts"></div></section>
+    <section id="aboutView" class="view">
+      <div class="page-intro">
+        <div>
+          <p class="eyebrow">ZIPZAP / SOBRE</p>
+          <h1>Sobre a ZipZap</h1>
+          <p>Conheça a história de quem está revolucionando o mercado de tecnologia.</p>
+        </div>
+      </div>
+      <div class="about-content">
+        <p>Fundada em 2015, a <strong>ZipZap</strong> se tornou referência em tecnologia e informática no Brasil. Começamos como uma pequena loja online e hoje atendemos milhares de clientes em todo o país.</p>
+        <p>Nossa missão é democratizar o acesso à tecnologia de ponta, oferecendo produtos originais, preços justos e atendimento humano.</p>
+        <p>Nossos valores: <strong>Transparência</strong>, <strong>Inovação</strong> e <strong>Compromisso com o cliente</strong>.</p>
+        <p>Estamos localizados na Avenida Marechal Tito, 7579 - São Paulo. Venha nos visitar!</p>
+        <div class="about-highlight">
+          <h3>🚀 Nossa jornada</h3>
+          <ul style="line-height:2;padding-left:20px;">
+            <li><strong>2015:</strong> Fundação da loja</li>
+            <li><strong>2018:</strong> Expansão para todo o Brasil</li>
+            <li><strong>2021:</strong> Lançamento do montador de PC</li>
+            <li><strong>2024:</strong> Mais de 100 mil clientes atendidos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-reference container">
+      <div class="footer-link-group"><strong>Institucional</strong><a data-view="about">Sobre a ZipZap</a><a data-modal="store">Nossas lojas</a><a>Trabalhe conosco</a><a>Política de privacidade</a><a>Termos de uso</a></div>
+      <div class="footer-link-group"><strong>Atendimento</strong><button data-panel="support">Central de atendimento</button><a>Fale conosco</a><a>Perguntas frequentes</a><a>Trocas e devoluções</a><a>Acompanhar pedido</a></div>
+      <div class="footer-link-group"><strong>Formas de pagamento</strong><a>Pix</a><a>Cartão de crédito</a><a>Boleto bancário</a></div>
+      <span class="footer-divider"></span>
+      <div class="footer-social"><strong>Siga a ZipZap</strong><div><a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter"><img src="https://api.iconify.design/fa6-brands:twitter.svg?color=white" alt="Twitter"></a><a href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube"><img src="https://api.iconify.design/fa6-brands:youtube.svg?color=white" alt="YouTube"></a><a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram"><img src="https://api.iconify.design/fa6-brands:instagram.svg?color=white" alt="Instagram"></a><a href="https://tiktok.com" target="_blank" rel="noreferrer" aria-label="TikTok"><img src="https://api.iconify.design/fa6-brands:tiktok.svg?color=white" alt="TikTok"></a><a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook"><img src="https://api.iconify.design/fa6-brands:facebook-f.svg?color=white" alt="Facebook"></a></div></div>
+    </div>
+    <div class="footer-bottom container"><span>© 2025 ZipZap Tecnologia. Todos os direitos reservados.</span><span>Compra segura <b>◈</b> &nbsp; Garantia ZipZap <b>✓</b></span></div>
+  </footer>
+
+  <!-- Chat Bot -->
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header"><strong>ZipZap Assistente</strong><button class="chat-close" id="chatClose">×</button></div>
+    <div class="chat-messages" id="chatMessages"><div class="chat-msg bot">Olá! 👋 Sou o assistente da ZipZap. Como posso te ajudar?</div></div>
+    <div class="chat-input-row"><input id="chatInput" placeholder="Digite sua mensagem..."><button id="chatSend">➤</button></div>
+  </div>
+  <div class="chat-bubble" id="chatBubble"><img src="https://api.iconify.design/fa6-solid:comment-dots.svg?color=white" alt="Chat"></div>
+
+  <!-- Toggle Dark Mode -->
+
+  <div class="builder-picker-backdrop" id="builderPicker">
+    <div class="builder-picker" role="dialog" aria-labelledby="builderPickerTitle">
+      <button class="close-panel" id="closeBuilderPicker" aria-label="Fechar">×</button>
+      <p class="panel-eyebrow">MONTE SEU PC</p>
+      <h2 id="builderPickerTitle">Escolher peça</h2>
+      <div class="builder-picker-grid" id="builderPickerGrid"></div>
+    </div>
+  </div>
+  <div class="overlay" id="overlay"></div><aside class="side-panel" id="sidePanel"><button class="close-panel" id="closePanel">×</button><div id="panelContent"></div></aside>
+  <div class="modal-backdrop" id="modalBackdrop"><div class="modal" id="modalContent"><button class="close-panel" id="closeModal">×</button></div></div>
+  <div class="toast" id="toast"><span>✓</span><p></p></div>
+  <script src="app.js"></script>
+  <script>
+    // Chat Bot simples
+    const chatBubble = document.getElementById('chatBubble');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatClose = document.getElementById('chatClose');
+    const chatSend = document.getElementById('chatSend');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    
+    chatBubble.addEventListener('click', () => { chatWindow.classList.toggle('open'); });
+    chatClose.addEventListener('click', () => { chatWindow.classList.remove('open'); });
+    chatSend.addEventListener('click', sendChat);
+    chatInput.addEventListener('keypress', e => { if(e.key==='Enter') sendChat(); });
+    
+    function sendChat(){
+      const msg = chatInput.value.trim();
+      if(!msg) return;
+      chatMessages.innerHTML += `<div class="chat-msg user">${msg}</div>`;
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      // resposta automática
+      setTimeout(()=>{
+        let reply = "Obrigado pela mensagem! 😊 Um atendente vai te responder em breve.";
+        const lower = msg.toLowerCase();
+        if(lower.includes('frete')) reply = "Oferecemos frete grátis para compras acima de R$ 499!";
+        else if(lower.includes('prazo')) reply = "Nosso prazo médio de entrega é de 3 a 7 dias úteis.";
+        else if(lower.includes('garantia')) reply = "Todos os produtos têm garantia de fábrica. PCs montados têm 12 meses de garantia ZipZap.";
+        else if(lower.includes('pagamento')) reply = "Aceitamos Pix, cartão de crédito em até 10x sem juros e boleto.";
+        else if(lower.includes('troca')) reply = "Você tem 7 dias para troca ou devolução após o recebimento.";
+        chatMessages.innerHTML += `<div class="chat-msg bot">${reply}</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 800);
+    }
+
+    // Barra de progresso de leitura
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const scrollTop = window.scrollY;
+      const height = doc.scrollHeight - doc.clientHeight;
+      const progress = (scrollTop / height) * 100;
+      document.getElementById('readingProgress').style.width = progress + '%';
+    });
+
+    // Newsletter
+    document.querySelector('#newsletterForm')?.addEventListener('submit', event => {
+      event.preventDefault();
+      const email = event.currentTarget.querySelector('input');
+      email.value = '';
+      alert('Cadastro realizado. Boas ofertas estão a caminho!');
+    });
+  </script>
+</body>
+</html>
