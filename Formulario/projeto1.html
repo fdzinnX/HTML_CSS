@@ -1,0 +1,50 @@
+<form action="/cadastro" method="post">
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" name="nome">
+  <button type="submit">Enviar</button>
+</form>
+
+<form>
+  <fieldset>
+    <legend>Dados pessoais</legend>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome">
+  </fieldset>
+
+  <fieldset>
+    <legend>Endereço</legend>
+    <label for="rua">Rua:</label>
+    <input type="text" id="rua" name="rua">
+  </fieldset>
+</form>
+
+<fieldset>
+  <legend>Informações da conta</legend>
+  <label for="usuario">Usuário:</label>
+  <input type="text" id="usuario" name="usuario">
+  <label for="senha">Senha:</label>
+  <input type="password" id="senha" name="senha">
+</fieldset>
+
+<label for="email">E-mail:</label>
+<input type="email" id="email" name="email">
+
+<input type="text" name="cidade" placeholder="Digite sua cidade">
+
+<label for="estado">Estado:</label>
+<select id="estado" name="estado">
+  <option value="">Selecione...</option>
+  <option value="sp">São Paulo</option>
+  <option value="rj">Rio de Janeiro</option>
+  <option value="mg">Minas Gerais</option>
+</select>
+
+<select name="area">
+  <option value="ti">Tecnologia</option>
+  <option value="adm">Administração</option>
+  <option value="mkt">Marketing</option>
+</select>
+
+<button type="submit">Cadastrar</button>
+<button type="reset">Limpar</button>
+<button type="button">Cancelar</button>
