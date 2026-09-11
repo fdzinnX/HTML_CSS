@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pr-BR">
+
+</html>
+
+<head>
+<title>Finalizar Compra</title>
+</head>
+
+<body>
+    <form>
+        <h1>Finalizar Compra</h1>
+        <fieldset>
+            <legend for="endereço">Endereço de Entrega</legend>
+            <label for="nome do destinatrio">Nome do Destinatario</label>
+            <input type="text" id="nome do destinatario" name="nome do destinatario">
+
+            <br>
+            <br>
+
+            <label for="cep">CEP</label>
+            <input type="number" id="cep" name="cep" placeholder="0000-00">
+
+            <br>
+            <br>
+
+            <label for="rua">Rua</label>
+            <input type="text" id="rua" name="rua">
+
+            <br>
+            <br>
+
+            <label for="numero">Número</label>
+            <input type="number" id="numero" name="numero">
+
+            <br>
+            <br>
+
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" name="complemento">
+        </fieldset>
+        <fieldset>
+            <legend for="opcoes de entrega">Opções de Entrega</legend>
+            <label for="periodo de entrega">Período de Entrega</label>
+            <select name="periodo de entrega">
+                <option value="man">Manhã (08h-12h)</option>
+                <option value="tar">Tarde (13h-17h)</option>
+                <option value="noi">Noite (18h-22h)</option>
+            </select>
+
+            <br>
+            <br>
+
+            <label for="instrucoes de entrega">Instruções de Entrega:</label>
+
+            <br>
+            <br>
+
+            <input type="radio" id="deixar na portaria" name="instrucoes de entrega" value="deixar na portaria">
+            <label for="deixar na portaria">Deixar na Portaria</label>
+
+            <br>
+
+            <input type="radio" id="entregar em maos" name="instrucoes de entrega" value="entregar em maos">
+            <label for="entregar em maos">Entregar em Mãos</label>
+
+            <br>
+
+            <input type="radio" id="ligar ao chegar" name="instrucoes de entrega" value="ligar ao chegar">
+            <label for="ligar ao chegar">Ligar ao Chegar</label>
+
+            <br>
+            <br>
+
+            <label for="text">Cupom de Desconto:</label>
+            <input type="text" id="cupom de desconto" name="cupom de desconto">
+
+            <br>
+            <br>
+
+            <input type="checkbox" id="receber ofertas" name="receber ofertas">
+            <label for="receber ofertas">Receber ofertas por WhatsApp</label>
+        </fieldset>
+        <button type="submit">Finalizar Compra</button>
+    </form>
+</body>
